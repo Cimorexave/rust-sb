@@ -2,6 +2,9 @@
 // Rust Basics: Variables, Functions, Control Flow, Ownership
 // ============================================================
 
+mod temp; // Import the temp module (defined in src/temp.rs)
+
+
 fn add(a: i32, b: i32) -> i32 {
     a + b
 }
@@ -34,6 +37,11 @@ fn append_exclamation(s: &mut String) {
 }
 
 fn main() {
+
+    // Run the temperature converter terminal application
+    while temp::temp_convertor::run() {}
+    return;
+
     // --------------------------------------------------
     // 1. Variables — immutable by default
     // --------------------------------------------------
