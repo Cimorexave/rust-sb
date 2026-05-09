@@ -3,6 +3,8 @@
 // ============================================================
 
 mod temp; // Import the temp module (defined in src/temp.rs)
+mod fibo; // Import the fibo module (defined in src/fibo.rs)
+// mod todo; // Import the todo module (defined in src/todo.rs)
 
 
 fn add(a: i32, b: i32) -> i32 {
@@ -37,10 +39,55 @@ fn append_exclamation(s: &mut String) {
 }
 
 fn main() {
-
-    // Run the temperature converter terminal application
-    while temp::temp_convertor::run() {}
-    return;
+    println!("Choose an application to run:");
+    println!("1. Temperature Converter");
+    println!("2. Fibonacci Calculator");
+    println!("3. TODO List Manager");
+    
+    let app_choice = loop {
+        println!("Enter your choice (1, 2, or 3):");
+        let mut input = String::new();
+        std::io::stdin().read_line(&mut input).expect("Failed to read line");
+        match input.trim() {
+            "1" | "2" | "3" => break input,
+            _ => println!("Invalid choice! Please enter 1, 2, or 3."),
+        }
+    };
+    match app_choice.trim() {
+        "1" => {
+            println!("Running Temperature Converter...");
+            while temp::temp_convertor::run() {}
+            return;
+        },
+        "2" => {
+            println!("Running Fibonacci Calculator...");
+            // Fibonacci is calculated below in the main function
+            let mut fibo_index: u32 = 0;
+            println!("Enter the Fibonacci index (non-negative integer):");
+            loop {
+                let mut input = String::new();
+                std::io::stdin().read_line(&mut input).expect("Failed to read line");
+                match input.trim().parse::<u32>() {
+                    Ok(val) => {
+                        fibo_index = val;
+                        break;
+                    },
+                    Err(_) => println!("Invalid input! Please enter a non-negative integer."),
+                }
+            }
+            print!("Fibonacci of {fibo_index} is {}", fibo::fibo::fib(fibo_index));
+            return;
+        },
+        "3" => {
+            println!("Running TODO List Manager...");
+            // todo::run();
+            return;
+        },
+        _ => {
+            println!("Unexpected error: invalid choice");
+            return;
+        },
+    }
 
     // --------------------------------------------------
     // 1. Variables — immutable by default
