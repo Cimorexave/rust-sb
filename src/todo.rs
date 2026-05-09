@@ -1,15 +1,16 @@
 mod todo {
 
     pub struct Todo {
-        title: String,
-        description: String,
-        completed: bool,
+        pub title: String,
+        pub description: String,
+        pub completed: bool,
     }
     impl Todo {
         pub fn new(title: String, description: String, completed: bool) -> Self {
             Todo { title, description, completed }
         }
     }
+
     pub fn run() {
         let mut choice: String = String::new();
         println!("Choose an option:");  
@@ -31,8 +32,12 @@ mod todo {
         match choice.trim() {
             "1" => {
                 println!("\nTODO List:");
-                for (i, todo) in todos.iter().enumerate() {
-                    println!("{}. {}", i + 1, todo);
+                if todos.items.is_empty() {
+                    println!("(no items)");
+                } else {
+                    for (i, todo) in todos.items.iter().enumerate() {
+                        println!("{}. {} [{}]", i + 1, todo.title, if todo.completed { "x" } else { " " });
+                    }
                 }
             },
             "2" => {},
